@@ -1,0 +1,12 @@
+telebot
+
+os
+
+sys
+
+bs4
+
+selenium
+
+psycopg2
+-binary
