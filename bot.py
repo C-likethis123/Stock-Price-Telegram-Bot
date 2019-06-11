@@ -14,14 +14,13 @@ conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 #connect to server
 #conn = psycopg2.connect(host=host, database=database, user=user, password=password)
-print("Connected to database!")
 cur = conn.cursor()
 browser = webdriver.PhantomJS()
-print("Started a browser!")
 
 commands = {'/delete': 'Delete one or more companies from your watchlist.',
             '/add': 'Add a company to your watchlist',
-            '/prices': 'Get the latest stock prices of companies in your watchlist.'}
+            '/prices': 'Get the latest stock prices of companies in your watchlist.'
+            '/create': 'Creates a new watchlist'}
 def main():    
     #retrieves stock price of company
     def retrieve_price(url):
@@ -38,6 +37,18 @@ def main():
 
 
         bot.send_message(message.chat.id, msg)
+
+
+    @bot.message_handler(commands=['create'])
+    def create_watchlist(message):
+        command = '''CREATE TABLE WATCHLIST
+            (code varchar(10),
+            url varchar(1000),
+            company varchar(100)
+            id int SERIAL)'''
+        cur.execute(command)
+
+        bot.send_message(message.chat.id, "Watchlist created!")
 
     @bot.message_handler(commands=['delete'])
     def delete_company(message):
