@@ -19,7 +19,7 @@ browser = webdriver.PhantomJS()
 
 commands = {'/delete': 'Delete one or more companies from your watchlist.',
             '/add': 'Add a company to your watchlist',
-            '/prices': 'Get the latest stock prices of companies in your watchlist.'
+            '/prices': 'Get the latest stock prices of companies in your watchlist.',
             '/create': 'Creates a new watchlist'}
 def main():    
     #retrieves stock price of company
