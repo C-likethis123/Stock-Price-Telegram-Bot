@@ -49,7 +49,7 @@ def main():
             (code varchar(10),
             url varchar(1000),
             company varchar(100)
-            id int SERIAL)'''
+            id SERIAL)'''
         cur.execute(command)
 
         bot.send_message(message.chat.id, "Watchlist created!")
