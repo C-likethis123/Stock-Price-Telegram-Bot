@@ -33,6 +33,7 @@ def main():
 
     @bot.message_handler(commands=['start'])
     def start_bot(message):
+        print("Going into the start command")
         msg = "Hello, this is Stock Price Bot! Here are the list of commands:\n"
         for command in commands:
             msg += command + " " + commands[command] + "\n"
@@ -43,6 +44,7 @@ def main():
 
     @bot.message_handler(commands=['create'])
     def create_watchlist(message):
+        print("Creating a watchlist!")
         command = '''CREATE TABLE WATCHLIST
             (code varchar(10),
             url varchar(1000),
@@ -54,6 +56,7 @@ def main():
 
     @bot.message_handler(commands=['delete'])
     def delete_company(message):
+        print("Going into the delete_company function")
         command = 'SELECT * FROM WATCHLIST;'
         company_urls = cur.execute(command)
         rows = cur.fetchall()
@@ -135,6 +138,8 @@ def main():
             
 
     bot.polling()
+
+
 
 
 try:
