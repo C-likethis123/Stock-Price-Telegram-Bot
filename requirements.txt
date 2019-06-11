@@ -1,4 +1,4 @@
-PyTelegramBotAPI==2.2.3
+PyTelegramBotAPI
 bs4
 selenium==3.141.0
 psycopg2-binary
