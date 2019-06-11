@@ -1,6 +1,6 @@
-telebot
+telebot==0.0.3
 os
 sys
 bs4
-selenium
+selenium==3.141.0
 psycopg2-binary
