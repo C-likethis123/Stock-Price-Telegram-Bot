@@ -7,15 +7,17 @@ import psycopg2
 
 bot_token = os.environ['STOCK_BOT_TOKEN']
 bot = telebot.TeleBot(bot_token)
+print("Connected to bot API: " + bot_token)
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+print("Connected to database url: " + DATABASE_URL)
 
 #connect to server
-#conn = psycopg2.connect(host=host, database=database, user=user, password=password)
 cur = conn.cursor()
 browser = webdriver.PhantomJS()
+print("Opened a browser in PhantomJS!")
 
 commands = {'/delete': 'Delete one or more companies from your watchlist.',
             '/add': 'Add a company to your watchlist',
