@@ -158,9 +158,3 @@ except NameError:
     cur.close()
     conn.close()
     sys.exit(0)
-except Exception:
-    print("Encountered something, shutting down... ")
-    browser.quit()
-    cur.close()
-    conn.close()
-    sys.exit(0)
