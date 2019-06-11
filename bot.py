@@ -6,7 +6,7 @@ from selenium import webdriver
 import psycopg2
 
 bot_token = os.environ['STOCK_BOT_TOKEN']
-bot = telebot.TeleBot(token=bot_token)
+bot = telebot.TeleBot(bot_token)
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
