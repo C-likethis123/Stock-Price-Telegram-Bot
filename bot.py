@@ -48,7 +48,7 @@ def main():
         command = '''CREATE TABLE WATCHLIST
             (code varchar(10),
             url varchar(1000),
-            company varchar(100)
+            company varchar(100),
             id SERIAL)'''
         cur.execute(command)
 
