@@ -128,13 +128,13 @@ def main():
         company_urls = cur.execute(command)
 
         rows = cur.fetchall()
-        
+        final_message = "Prices of stocks:\n"
         for row in rows:
             code = row[0]
             url = row[1]
             company = row[2]
-            bot.send_message(message.chat.id, "The price of {}({}) is {}.".format(company, code, retrieve_price(url)))
-            print(row)
+            final_message += "The price of {}({}) is {}.\n".format(company, code, retrieve_price(url))
+        bot.send_message(message.chat.id, final_message)
             
 
     bot.polling()
