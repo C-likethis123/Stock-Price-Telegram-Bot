@@ -22,7 +22,7 @@ print("Opened a browser in PhantomJS!")
 commands = {'/delete': 'Delete one or more companies from your watchlist.',
             '/add': 'Add a company to your watchlist',
             '/prices': 'Get the latest stock prices of companies in your watchlist.',
-            '/create': 'Creates a new watchlist'}
+            }
 def main():    
     #retrieves stock price of company
     def retrieve_price(url):
@@ -40,19 +40,6 @@ def main():
 
 
         bot.send_message(message.chat.id, msg)
-
-
-    @bot.message_handler(commands=['create'])
-    def create_watchlist(message):
-        print("Creating a watchlist!")
-        command = '''CREATE TABLE WATCHLIST
-            (code varchar(10),
-            url varchar(1000),
-            company varchar(100),
-            id SERIAL)'''
-        cur.execute(command)
-
-        bot.send_message(message.chat.id, "Watchlist created!")
 
     @bot.message_handler(commands=['delete'])
     def delete_company(message):
