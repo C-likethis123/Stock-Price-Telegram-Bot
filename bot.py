@@ -58,7 +58,7 @@ def main():
         if not is_registered(str(id)):
             bot.send_message(id, "You have not added any stocks to your watchlist!")
         else:
-            command = 'SELECT * FROM WATCHLIST;'
+            command = "SELECT * FROM WATCHLIST WHERE user_id='{}';".format(id)
             company_urls = cur.execute(command)
             rows = cur.fetchall()
 
@@ -69,7 +69,7 @@ def main():
                 index = row[3]
                 msg += "{}. {}({})\n".format(index, company, code)
 
-            action = bot.send_message(message.chat.id, msg)
+            action = bot.send_message(id, msg)
             bot.register_next_step_handler(action, process_deletion)
 
     def process_deletion(message):
@@ -113,11 +113,12 @@ def main():
         company_name = information[0]
         ticker = information[1]
         link = information[2]
+        user_id = str(message.chat.id)
 
-        command = '''INSERT INTO watchlist (code, company, url)
-                VALUES (%s, %s, %s);'''
+        command = '''INSERT INTO watchlist (code, company, url, user_id)
+                VALUES (%s, %s, %s, %s);'''
         print(command)
-        cur.execute(command, (ticker, company_name, link))
+        cur.execute(command, (ticker, company_name, link, user_id))
         conn.commit()
         bot.send_message(message.chat.id, company_name + " added into watchlist!")
 
