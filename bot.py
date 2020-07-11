@@ -31,6 +31,15 @@ def main():
         result = soup.find("span", {"class": "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)"})
         return result.text
 
+    # Check if a user is registered in the database
+    def is_registered(id):
+        # query database
+        command = "SELECT * FROM users WHERE ID='{}';".format(id)
+        cur.execute(command)
+        rows = cur.fetchall()
+        # if there is no such id in the database, return false
+        return len(rows) != 0
+
     @bot.message_handler(commands=['start'])
     def start_bot(message):
         print("Going into the start command")
@@ -44,19 +53,24 @@ def main():
     @bot.message_handler(commands=['delete'])
     def delete_company(message):
         print("Going into the delete_company function")
-        command = 'SELECT * FROM WATCHLIST;'
-        company_urls = cur.execute(command)
-        rows = cur.fetchall()
+        print(message.chat.id)
+        id = message.chat.id
+        if not is_registered(str(id)):
+            bot.send_message(id, "You have not added any stocks to your watchlist!")
+        else:
+            command = 'SELECT * FROM WATCHLIST;'
+            company_urls = cur.execute(command)
+            rows = cur.fetchall()
 
-        msg = "Select company (companies) to delete from the watchlist (Reply 0 to cancel this operation):\n"
-        for row in rows:
-            code = row[0]
-            company = row[2]
-            index = row[3]
-            msg += "{}. {}({})\n".format(index, company, code)
+            msg = "Select company (companies) to delete from the watchlist (Reply 0 to cancel this operation):\n"
+            for row in rows:
+                code = row[0]
+                company = row[2]
+                index = row[3]
+                msg += "{}. {}({})\n".format(index, company, code)
 
-        action = bot.send_message(message.chat.id, msg)
-        bot.register_next_step_handler(action, process_deletion)
+            action = bot.send_message(message.chat.id, msg)
+            bot.register_next_step_handler(action, process_deletion)
 
     def process_deletion(message):
         action = message.text
