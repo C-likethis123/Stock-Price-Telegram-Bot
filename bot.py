@@ -114,7 +114,10 @@ def main():
         ticker = information[1]
         link = information[2]
         user_id = str(message.chat.id)
-
+        if not is_registered(user_id):
+            # register user
+            cur.execute("INSERT INTO users (id) VALUES ('{}')".format(user_id))
+            conn.commit()
         command = '''INSERT INTO watchlist (code, company, url, user_id)
                 VALUES (%s, %s, %s, %s);'''
         print(command)
