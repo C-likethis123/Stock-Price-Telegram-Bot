@@ -129,10 +129,12 @@ def main():
     @bot.message_handler(commands=['prices'])
     def monitor_price(message):
         print("Opened a browser with PhantomJS")
-        command = 'SELECT * FROM WATCHLIST;'
+        command = "SELECT * FROM WATCHLIST WHERE user_id='{}';".format(id)
         company_urls = cur.execute(command)
+        print(company_urls)
 
         rows = cur.fetchall()
+        print(rows)
         final_message = "Prices of stocks:\n"
         for row in rows:
             code = row[0]
